@@ -1,44 +1,63 @@
-from datetime import date
+import datetime 
+
+
+today_date = datetime.datetime.today()
 
 def check_birthdate(day,month,year):
-
-    today = date.today()
-    if year > today.year:
+    if year > today_date.year:
         return False
-    elif year == today.year and month > today.month:
+    elif year == today_date.year and month > today_date.month:
         return False
-    elif year == today.year and month == today.month and day > today.day:
+    elif year == today_date.year and month == today_date.month and day > today_date.day:
         return False
     else:
         return True
 
 
-def calculate_age(day,month,year):
-    
-    today = date.today()
-    user_age_year = today.year - year
-    if month > today.month:
-        user_age_month = month - today.month
-    else:
-        user_age_month = today.month - month
-    if day > today.day:
-        user_age_day = day - today.day
-    else:
-        user_age_day = today.month - day
 
-    print("You are {} Years, {} months and {} days years old ".format(user_age_year,user_age_month,user_age_day))
+def calculate(day,month,year):
+    year_dif = today_date.year - year
+    month_dif = today_date.month - month
+    day_dif = today_date.day - day
+    if year_dif >= 0 :
+        if month_dif < 0:
+            year_dif = year_dif - 1
+        else:
+            year_dif = year_dif         
+    else:
+        print("the birthdate is invalid")
+
+    if month_dif < 0: 
+        month_dif = 12 + month_dif
+
+
+    if day_dif > 0: 
+        day_dif = 30 - day_dif
+    elif day_dif < 0:
+        day_dif += 30
+    else:
+        day_dif = 0
+        print("happy birthday")
+        
+        
+    answer= "you are {} years {} months and {} days old".format(year_dif,month_dif,day_dif) 
+    print(answer)
+
+
 
 
 
 if __name__ == '__main__':
 
-    user_year_of_birth = int(input("Enter Year Of Birth: "))
-    user_month_of_birth = int(input("Enter Month Of Birth: "))
-    user_day_of_birth = int(input("Enter Day Of Birth: "))
+    year = int(input("Enter Year Of Birth: "))
+    month = int(input("Enter Month Of Birth: "))
+    day = int(input("Enter Day Of Birth: "))
 
-    check_correct_date = check_birthdate(user_day_of_birth,user_month_of_birth,user_year_of_birth)
+    check_correct_date = check_birthdate(day,month,year) 
 
     if check_correct_date is True:
-        calculate_age(user_day_of_birth,user_month_of_birth,user_year_of_birth)
+        calculate(day,month,year) 
     else:
         print("Birthdate is Invalid")
+
+
